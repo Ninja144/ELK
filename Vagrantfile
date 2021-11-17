@@ -23,7 +23,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       systemctl disable firewalld
       sed -i 's/SELINUX=enforcing/SELINUX=disabled/' /etc/selinux/config
       setenforce 0
-      yum install -y vim bash-completion mc bind-utils
+      yum install -y vim bash-completion mc bind-utils wget git
       cat > /etc/resolf.conf << EOF
 nameserver 8.8.8.8
 EOF
@@ -55,7 +55,7 @@ EOF
       systemctl disable firewalld
       sed -i 's/SELINUX=enforcing/SELINUX=disabled/' /etc/selinux/config
       setenforce 0
-      yum install -y vim bash-completion mc bind-utils
+      yum install -y vim bash-completion mc bind-utils wget git
       cat > /etc/resolf.conf << EOF
 nameserver 8.8.8.8
 EOF
@@ -85,7 +85,7 @@ EOF
       systemctl disable firewalld
       sed -i 's/SELINUX=enforcing/SELINUX=disabled/' /etc/selinux/config
       setenforce 0
-      yum install -y vim bash-completion mc bind-utils
+      yum install -y vim bash-completion mc bind-utils wget git
       cat > /etc/resolf.conf << EOF
 nameserver 8.8.8.8
 EOF
@@ -115,7 +115,7 @@ EOF
       systemctl disable firewalld
       sed -i 's/SELINUX=enforcing/SELINUX=disabled/' /etc/selinux/config
       setenforce 0
-      yum install -y vim bash-completion mc bind-utils
+      yum install -y vim bash-completion mc bind-utils wget git
       cat > /etc/resolf.conf << EOF
 nameserver 8.8.8.8
 EOF
@@ -147,7 +147,7 @@ EOF
       systemctl disable firewalld
       sed -i 's/SELINUX=enforcing/SELINUX=disabled/' /etc/selinux/config
       setenforce 0
-      yum install -y vim bash-completion mc bind-utils
+      yum install -y vim bash-completion mc bind-utils wget git
       cat > /etc/resolf.conf << EOF
 nameserver 8.8.8.8
 EOF
