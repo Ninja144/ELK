@@ -23,10 +23,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       systemctl disable firewalld
       sed -i 's/SELINUX=enforcing/SELINUX=disabled/' /etc/selinux/config
       setenforce 0
-      yum install -y vim bash-completion mc bind-utils wget git
       cat > /etc/resolf.conf << EOF
 nameserver 8.8.8.8
 EOF
+      yum update -y
+      yum install -y vim bash-completion mc bind-utils wget git
       cat > /etc/hosts << EOF
 127.0.0.1   localhost kibana-node01
 10.0.3.11   es-node01
@@ -55,10 +56,11 @@ EOF
       systemctl disable firewalld
       sed -i 's/SELINUX=enforcing/SELINUX=disabled/' /etc/selinux/config
       setenforce 0
-      yum install -y vim bash-completion mc bind-utils wget git
       cat > /etc/resolf.conf << EOF
 nameserver 8.8.8.8
 EOF
+      yum update -y
+      yum install -y vim bash-completion mc bind-utils wget git
       cat > /etc/hosts << EOF
 127.0.0.1   localhost es-node01
 10.0.3.2    kibana-node01
@@ -85,10 +87,11 @@ EOF
       systemctl disable firewalld
       sed -i 's/SELINUX=enforcing/SELINUX=disabled/' /etc/selinux/config
       setenforce 0
-      yum install -y vim bash-completion mc bind-utils wget git
       cat > /etc/resolf.conf << EOF
 nameserver 8.8.8.8
 EOF
+      yum update -y
+      yum install -y vim bash-completion mc bind-utils wget git
       cat > /etc/hosts << EOF
 127.0.0.1   localhost es-node02
 10.0.3.2    kibana-node01
@@ -115,10 +118,11 @@ EOF
       systemctl disable firewalld
       sed -i 's/SELINUX=enforcing/SELINUX=disabled/' /etc/selinux/config
       setenforce 0
-      yum install -y vim bash-completion mc bind-utils wget git
       cat > /etc/resolf.conf << EOF
 nameserver 8.8.8.8
 EOF
+      yum update -y
+      yum install -y vim bash-completion mc bind-utils wget git
       cat > /etc/hosts << EOF
 127.0.0.1   localhost es-node03
 10.0.3.2    kibana-node01
@@ -147,10 +151,11 @@ EOF
       systemctl disable firewalld
       sed -i 's/SELINUX=enforcing/SELINUX=disabled/' /etc/selinux/config
       setenforce 0
-      yum install -y vim bash-completion mc bind-utils wget git
       cat > /etc/resolf.conf << EOF
 nameserver 8.8.8.8
 EOF
+      yum update -y
+      yum install -y vim bash-completion mc bind-utils wget git
       cat > /etc/hosts << EOF
 127.0.0.1   localhost logstash-node01
 10.0.3.2    kibana-node01
