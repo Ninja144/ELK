@@ -45,3 +45,8 @@
         dest: "{{ dest_config_file }}"
       when: ansible_hostname == "es-node03"
 
+    - name: Start elasticsearch
+      service:
+        name: elasticsearch
+        state: started
+        enabled: yes
