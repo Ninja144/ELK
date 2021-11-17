@@ -1,0 +1,47 @@
+---
+- name: Install elastic
+  hosts: all
+  become: yes
+  
+  vars:
+    source_file: elasticsearch.repo
+    destin_file: /etc/yum.repos.d/
+    dest_config_file: /etc/elasticsearch/elasticsearch.yml
+
+  tasks:
+
+    - name: Add rpm key
+      shell: rpm --import https://artifacts.elastic.co/GPG-KEY-elasticsearch
+
+    - name: Add repo in yum.repos.d
+      copy: 
+        src: "{{ source_file }}"
+        dest: "{{ destin_file }}"
+    
+    - name: Install elastic
+      shell: yum install -y --enablerepo=elasticsearch elasticsearch
+
+    - name: Copy config
+      vars:
+        cfg_file: elasticsearch-01.yml
+      copy:
+        src: "{{ cfg_file }}"
+        dest: "{{ dest_config_file }}"
+      when: ansible_hostname == "es-node01"
+
+    - name: Copy config
+      vars:
+        cfg_file: elasticsearch-02.yml
+      copy:
+        src: "{{ cfg_file }}"
+        dest: "{{ dest_config_file }}"
+      when: ansible_hostname == "es-node02"
+
+    - name: Copy config
+      vars:
+        cfg_file: elasticsearch-03.yml
+      copy:
+        src: "{{ cfg_file }}"
+        dest: "{{ dest_config_file }}"
+      when: ansible_hostname == "es-node03"
+
