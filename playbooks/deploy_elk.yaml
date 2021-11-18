@@ -56,3 +56,13 @@
 
     - name: Disable swapoff
       shell: swapoff -a
+
+    - name: Edit sysctl
+      shell: echo "vm.swappiness=1" >> sysctl.conf; sysctl -p
+
+    - name: Restart elasticsearch
+      service:
+        name: elasticsearch
+        state: restarted
+        enabled: yes
+
