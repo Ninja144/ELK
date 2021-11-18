@@ -1,25 +1,26 @@
 ---
 - name: Deploy ELK
-  hosts: all
+
+#Install and configure elasticsearch
+
+  hosts: elasticsearch 
   become: yes
   
   vars:
-    dest_file: /etc/yum.repos.d/
-    dest_config_file: /etc/elasticsearch/elasticsearch.yml
+    dest_repo_file: /etc/yum.repos.d/
+    dest_cfg_file: /etc/elasticsearch/elasticsearch.yml
 
   tasks:
-
-#Install and configure elasticsearch
 
     - name: Add rpm key
       shell: rpm --import https://artifacts.elastic.co/GPG-KEY-elasticsearch
 
     - name: Add repo in yum.repos.d
       vars:
-        src_file: elasticsearch.repo
+        repo_file: elasticsearch.repo
       copy: 
-        src: "{{ src_file }}"
-        dest: "{{ dest_file }}"
+        src: "{{ repo_file }}"
+        dest: "{{ dest_repo_file }}"
     
     - name: Install elastic
       shell: yum install -y elasticsearch
@@ -29,7 +30,7 @@
         cfg_file: elasticsearch-01.yml
       copy:
         src: "{{ cfg_file }}"
-        dest: "{{ dest_config_file }}"
+        dest: "{{ dest_cfg_file }}"
       when: ansible_hostname == "es-node01"
 
     - name: Copy config
@@ -37,7 +38,7 @@
         cfg_file: elasticsearch-02.yml
       copy:
         src: "{{ cfg_file }}"
-        dest: "{{ dest_config_file }}"
+        dest: "{{ dest_cfg_file }}"
       when: ansible_hostname == "es-node02"
 
     - name: Copy config
@@ -45,7 +46,7 @@
         cfg_file: elasticsearch-03.yml
       copy:
         src: "{{ cfg_file }}"
-        dest: "{{ dest_config_file }}"
+        dest: "{{ dest_cfg_file }}"
       when: ansible_hostname == "es-node03"
 
     - name: Start elasticsearch
@@ -71,15 +72,23 @@
 
 #Install and configure kibana
 
+  hosts: kibana
+  become: yes
+  
+  vars: 
+    dest_repo_file: /etc/yum.repos.d/
+
+  tasks:
+
     - name: Add rpm key
       shell: sudo rpm --import https://artifacts.elastic.co/GPG-KEY-elasticsearch
 
     - name: Add repo in /etc/yum.repos.d/
       vars:
-        src_file: kibana.repo
+        repo_file: kibana.repo
       copy:
-        src: "{{ src_file }}"
-        dest: "{{ dest_file }}"
+        src: "{{ repo_file }}"
+        dest: "{{ dest_repo_file }}"
 
     - name: Install kibana
       shell: yum install -y kibana
@@ -89,3 +98,11 @@
         name: kibana
         state: started
         enabled: yes
+
+    - name: Copy config file
+      vars:
+        cfg_file: kibana.yml
+        dest_dir: /etc/kibana/
+      copy:
+        src: "{{ cfg_file }}"
+        dest: "{{ dest_dir }}"
