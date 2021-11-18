@@ -50,3 +50,9 @@
         name: elasticsearch
         state: started
         enabled: yes
+
+    - name: Heap size
+      shell: echo '-Xms16g' >> /etc/elasticsearch/jvm.options; echo '-Xmx16g' >> /etc/elasticsearch/jvm.options
+
+    - name: Disable swapoff
+      shell: swapoff -a
