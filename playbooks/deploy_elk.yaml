@@ -19,7 +19,7 @@
         dest: "{{ destin_file }}"
     
     - name: Install elastic
-      shell: yum install -y --enablerepo=elasticsearch elasticsearch
+      shell: yum install -y elasticsearch
 
     - name: Copy config
       vars:
