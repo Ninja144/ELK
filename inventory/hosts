@@ -1,7 +1,15 @@
+[kibana]
+kibana-node01 ansible_host=10.0.3.2
+
 [elasticsearch]
 es-node01 ansible_host=10.0.3.11
 es-node02 ansible_host=10.0.3.12
 es-node03 ansible_host=10.0.3.13
 
+[logstash]
+logstash-node01 ansible_host=10.0.3.21
+
 [servers_ALL:children]
+kibana
 elasticsearch
+logstash

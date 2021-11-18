@@ -4,19 +4,22 @@
   become: yes
   
   vars:
-    source_file: elasticsearch.repo
-    destin_file: /etc/yum.repos.d/
+    dest_file: /etc/yum.repos.d/
     dest_config_file: /etc/elasticsearch/elasticsearch.yml
 
   tasks:
+
+#Install and configure elasticsearch
 
     - name: Add rpm key
       shell: rpm --import https://artifacts.elastic.co/GPG-KEY-elasticsearch
 
     - name: Add repo in yum.repos.d
+      vars:
+        src_file: elasticsearch.repo
       copy: 
-        src: "{{ source_file }}"
-        dest: "{{ destin_file }}"
+        src: "{{ src_file }}"
+        dest: "{{ dest_file }}"
     
     - name: Install elastic
       shell: yum install -y elasticsearch
@@ -66,3 +69,23 @@
         state: restarted
         enabled: yes
 
+#Install and configure kibana
+
+    - name: Add rpm key
+      shell: sudo rpm --import https://artifacts.elastic.co/GPG-KEY-elasticsearch
+
+    - name: Add repo in /etc/yum.repos.d/
+      vars:
+        src_file: kibana.repo
+      copy:
+        src: "{{ src_file }}"
+        dest: "{{ dest_file }}"
+
+    - name: Install kibana
+      shell: yum install -y kibana
+
+    - name: Started kibana
+      service:
+        name: kibana
+        state: started
+        enabled: yes
