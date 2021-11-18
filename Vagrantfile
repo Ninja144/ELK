@@ -13,7 +13,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     kibananode01.vm.network "private_network", ip: "10.0.3.2"
     kibananode01.vm.hostname = "kibana-node01"
     kibananode01.vm.provider "virtualbox" do |v|
-      v.memory = 512
+      v.memory = 2048
       v.cpus = 1
     end
     kibananode01.vm.provision "shell", inline: <<-SHELL
@@ -26,7 +26,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       cat > /etc/resolf.conf << EOF
 nameserver 8.8.8.8
 EOF
-      yum update -y
+      #yum update -y
       yum install -y vim bash-completion mc bind-utils wget git
       cat > /etc/hosts << EOF
 127.0.0.1   localhost kibana-node01
@@ -46,7 +46,7 @@ EOF
     esnode01.vm.network "private_network", ip: "10.0.3.11"
     esnode01.vm.hostname = "es-node01"
     esnode01.vm.provider "virtualbox" do |v|
-      v.memory = 512
+      v.memory = 1024
       v.cpus = 1
     end
     esnode01.vm.provision "shell", inline: <<-SHELL
@@ -59,7 +59,7 @@ EOF
       cat > /etc/resolf.conf << EOF
 nameserver 8.8.8.8
 EOF
-      yum update -y
+      #yum update -y
       yum install -y vim bash-completion mc bind-utils wget git
       cat > /etc/hosts << EOF
 127.0.0.1   localhost es-node01
@@ -77,7 +77,7 @@ EOF
     esnode02.vm.network "private_network", ip: "10.0.3.12"
     esnode02.vm.hostname = "es-node02"
     esnode02.vm.provider "virtualbox" do |v|
-      v.memory = 512
+      v.memory = 1024
       v.cpus = 1
     end
     esnode02.vm.provision "shell", inline: <<-SHELL
@@ -90,7 +90,7 @@ EOF
       cat > /etc/resolf.conf << EOF
 nameserver 8.8.8.8
 EOF
-      yum update -y
+      #yum update -y
       yum install -y vim bash-completion mc bind-utils wget git
       cat > /etc/hosts << EOF
 127.0.0.1   localhost es-node02
@@ -108,7 +108,7 @@ EOF
     esnode03.vm.network "private_network", ip: "10.0.3.13"
     esnode03.vm.hostname = "es-node03"
     esnode03.vm.provider "virtualbox" do |v|
-      v.memory = 512
+      v.memory = 1024
       v.cpus = 1
     end
     esnode03.vm.provision "shell", inline: <<-SHELL
@@ -121,7 +121,7 @@ EOF
       cat > /etc/resolf.conf << EOF
 nameserver 8.8.8.8
 EOF
-      yum update -y
+      #yum update -y
       yum install -y vim bash-completion mc bind-utils wget git
       cat > /etc/hosts << EOF
 127.0.0.1   localhost es-node03
@@ -141,7 +141,7 @@ EOF
     logstashnode01.vm.network "private_network", ip: "10.0.3.21"
     logstashnode01.vm.hostname = "logstash-node01"
     logstashnode01.vm.provider "virtualbox" do |v|
-      v.memory = 512
+      v.memory = 1024
       v.cpus = 1
     end
     logstashnode01.vm.provision "shell", inline: <<-SHELL
@@ -154,7 +154,7 @@ EOF
       cat > /etc/resolf.conf << EOF
 nameserver 8.8.8.8
 EOF
-      yum update -y
+      #yum update -y
       yum install -y vim bash-completion mc bind-utils wget git
       cat > /etc/hosts << EOF
 127.0.0.1   localhost logstash-node01
