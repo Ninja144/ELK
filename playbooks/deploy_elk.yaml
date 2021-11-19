@@ -151,3 +151,24 @@
         state: started
         enabled: yes
 
+# Install and configure Logstash
+
+  hosts: logstash
+  become: yes
+
+  vars:
+    dest_repo_file: /etc/yum.repos.d/
+    dest_cfg_dir: /etc/kibana/
+    dest_cfg_file: /etc/elasticsearch/elasticsearch.yml
+    dest_cfg_dir_elastic: /etc/elasticsearch/
+
+  tasks:
+
+    - name: Add rpm key
+      shell: rpm --import https://artifacts.elastic.co/GPG-KEY-elasticsearch
+
+    - name: Copy repo
+      vars:
+        repo_file: logstash.repo
+      copy:
+        src: "{{ dest_repo_file }}"
