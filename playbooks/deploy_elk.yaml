@@ -78,6 +78,8 @@
   vars: 
     dest_repo_file: /etc/yum.repos.d/
     dest_cfg_dir: /etc/kibana/
+    dest_cfg_file: /etc/elasticsearch/elasticsearch.yml
+    dest_cfg_dir_elastic: /etc/elasticsearch/
 
   tasks:
 
@@ -115,3 +117,37 @@
         name: kibana
         state: restarted
         enabled: yes
+
+    - name: Add rpm key
+      shell: rpm --import https://artifacts.elastic.co/GPG-KEY-elasticsearch
+
+    - name: Add repo in yum.repos.d
+      vars:
+        repo_file: elasticsearch.repo
+      copy: 
+        src: "{{ repo_file }}"
+        dest: "{{ dest_repo_file }}"
+    
+    - name: Install elastic
+      shell: yum install -y elasticsearch
+
+    - name: Copy config
+      vars:
+        cfg_file: elasticsearch-kibana.yml
+      copy:
+        src: "{{ cfg_file }}"
+        dest: "{{ dest_cfg_file }}"
+ 
+    - name: Copy config list hosts
+      vars:
+        cfg_file: unicast_hosts.txt
+      copy:
+        src: "{{ cfg_file }}"
+        dest: "{{ dest_cfg_dir_elastic }}"
+
+    - name: Start elastic
+      service:
+        name: elasticsearch
+        state: started
+        enabled: yes
+
