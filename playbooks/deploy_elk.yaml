@@ -171,4 +171,16 @@
       vars:
         repo_file: logstash.repo
       copy:
-        src: "{{ dest_repo_file }}"
+        src: "{{ repo_file }}"
+        dest: "{{ dest_repo_file }}" 
+
+    - name: Install logstash
+      shell: yum install -y logstash
+
+    - name: Start and enable
+      service:
+        name: logstash
+        state: started
+        enabled: yes
+
+    - name
